@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}
+    Banking System
+{% endblock %}
+
+{% block body %}
+
+<!-- Show Django messages -->
+{% if messages %}
+  <div class="max-w-3xl mx-auto mt-6">
+    {% for message in messages %}
+      <div class="rounded px-4 py-3 mb-4 shadow-md
+        {% if message.tags == 'error' %}
+          bg-red-100 text-red-800
+        {% elif message.tags == 'success' %}
+          bg-green-100 text-green-800
+        {% elif message.tags == 'warning' %}
+          bg-yellow-100 text-yellow-800
+        {% else %}
+          bg-blue-100 text-blue-800
+        {% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<div class="container mx-auto flex flex-col md:flex-row items-stretch my-12 md:my-24 px-4 gap-6">
+  
+  <!-- Text Content Box -->
+  <div class="flex flex-col w-full lg:w-1/2 bg-white bg-opacity-80 rounded-2xl shadow-md p-8 justify-between">
+    
+    <!-- Top Section: Heading & Description -->
+    <div>
+      <h1 class="font-bold text-4xl mb-4 text-blue-900 text-center">Welcome to Empty Bank</h1>
+      <p class="text-gray-700 leading-relaxed text-center text-lg">
+        This is a simple banking app where you can deposit, withdraw, apply for loans, create an account, and manage your login easily. Our goal is to make banking smooth and intuitive for everyone.
+      </p>
+    </div>
+
+    <!-- Bottom Section: Call to Action -->
+    <div class="mt-8 flex justify-center items-center gap-4">
+      <a href="{% url 'register' %}" 
+         class="inline-block bg-blue-900 text-white hover:bg-green-900 hover:text-white-900 hover:border-green-900 border border-blue-900 transition duration-300 py-2 px-6 rounded shadow-lg">
+         Register Now
+      </a>
+    </div>
+  </div>
+
+  <!-- Image Box -->
+  <div class="w-full lg:w-1/2 flex items-center justify-center bg-white bg-opacity-80 rounded-2xl shadow-md p-6">
+    <img src="{% static 'img/bank.png' %}" alt="Bank Illustration" class="max-w-full h-auto rounded-lg">
+  </div>
+</div>
+
+
+</div>
+
+  
+{% endblock %}

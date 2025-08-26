@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- {% block head_title%}
+        
+    {% endblock%} -->
+    <script src="https://cdn.tailwindcss.com"></script>
+     <style>
+            footer {
+                position: fixed !important;
+                bottom: 0 !important;
+                width: 100%;
+            }
+        </style>
+</head>
+{% include 'navbar.html' %}
+<body class="bg-indigo-600">
+    
+    <br>
+    {% block body %}
+        
+    {% endblock %}
+    <br>
+    
+</body>
+{% include 'footer.html' %}
+</html>

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+    {{title}}
+{% endblock%}
+
+{% block body %}
+
+<!-- Show Django messages -->
+{% if messages %}
+  <div class="max-w-3xl mx-auto mt-6">
+    {% for message in messages %}
+      <div class="rounded px-4 py-3 mb-4 shadow-md
+        {% if message.tags == 'error' %}
+          bg-red-100 text-red-800
+        {% elif message.tags == 'success' %}
+          bg-green-100 text-green-800
+        {% elif message.tags == 'warning' %}
+          bg-yellow-100 text-yellow-800
+        {% else %}
+          bg-blue-100 text-blue-800
+        {% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
+<div class="my-10 py-3 px-4 bg-white rounded-xl shadow-md">
+    <h1 class="font-bold text-3xl text-center pb-5 pt-2">Loan Report</h1>
+    <hr/>
+    <table class="table-auto mx-auto w-full px-5 rounded-xl mt-8 border dark:border-neutral-500">
+        <thead class="bg-purple-900 text-white text-left">
+            <tr class="bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-md py-2 px-4 text-white font-bold">
+                <th class="px-4 py-2">Loan ID</th>
+                <th class="px-4 py-2">Loan Amount</th>
+                <th class="px-4 py-2">Loan Approved</th>
+                <th class="px-4 py-2">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loan in loans %}
+                <tr class="border-b dark:border-neutral-500">
+                    <td class="px-4 py-2">{{loan.id}}</td>
+                    <td class="px-4 py-2 text-s border">
+                        <span class="px-2 py-1 font-bold leading-tight rounded-lg text-lime-700 bg-lime-100">
+                            {{loan.amount}}
+                        </span>
+                    </td>
+                    <td class="px-4 py-2 text-s border">
+                        {% if loan.loan_approve %}
+                            ✅ Approved
+                        {% else %}
+                            ❌ Pending
+                        {% endif %}
+                    </td>
+                    <td class="px-4 py-2 text-s border">
+                        
+                        {% if loan.loan_approve %}  
+                         <button class="font-bold text-green-800 bg-green-100 leading-tight rounded-lg border border-green-800 border-rounded-lg px-2 py-1"><a href="{% url 'pay_loan' loan.id %}">Pay Loan</a></button>  
+                         {% else %}
+                         <span class="font-bold text-red-800 bg-red-100 leading-tight rounded-lg px-2 py-1">Loan Pending</> 
+                        {% endif %}
+                            
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
+    
+

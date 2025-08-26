@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <h2 class="text-2xl font-bold text-center text-blue-900 mb-6">Update Profile</h2>
+
+    {% if request.user.account %}
+    <div class="text-center mb-6">
+        <p class="text-lg font-semibold text-gray-700">
+            Account No: <span class="font-bold">{{ request.user.account.account_no }}</span>
+        </p>
+        <p class="text-lg font-semibold text-gray-700">
+            Balance: <span class="font-bold text-green-600">{{ request.user.account.balance }}</span>
+        </p>
+    </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="mb-5">
+                <label for="{{ field.id_for_label }}" class="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    <p class="text-red-500 text-sm italic mt-1">{{ field.errors|striptags }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="mt-6 flex justify-center">
+            <button type="submit"
+                class="w-full md:w-1/2 shadow bg-teal-500 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded">
+                Update
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

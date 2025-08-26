@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block body %}
+  {% if form.non_field_errors %} 
+    {% for error in form.non_field_errors %}
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2 mx-auto w-full max-w-md" role="alert">
+        <p class="font-bold">Error!</p>
+        <p class="block sm:inline">{{ error }}</p>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <div class="bg-gray-200 px-3 py-6 rounded-xl my-6 max-w-3xl mx-auto shadow-lg">
+    <h1 class="font-bold text-3xl text-center pb-5">Sign In</h1>
+
+    <form method="post" class="bg-gray-200 rounded px-8 pt-6 pb-8">
+      {% csrf_token %}
+
+      {% for hidden_field in form.hidden_fields %}
+        {{ hidden_field.errors }} {{ hidden_field }} 
+      {% endfor %}
+
+      <!-- List of visible form fields -->
+      {% for field in form.visible_fields %}
+        <div class="mb-5">
+          <label for="{{ field.id_for_label }}" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            {{ field.label }}
+          </label>
+          {{ field }}
+          {% if field.errors %}
+            {% for error in field.errors %}
+              <p class="text-red-500 text-sm italic pt-1">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <div class="mt-6">
+        <button type="submit" class="w-full shadow bg-teal-500 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
