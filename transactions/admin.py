@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Transaction, LoanTransaction
 from .constants import LOAN
 from django.contrib import messages
-from .views import send_transaction_email
+# from .views import send_transaction_email
 
 
 # Admin for all transactions EXCEPT loans

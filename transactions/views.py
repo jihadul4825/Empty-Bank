@@ -24,14 +24,14 @@ from .models import Transaction
 from .constants import DEPOSIT, WITHDRAWAL, LOAN, LOAN_PAID
 
 
-def send_transaction_email(user, amount, subject, template):
-    message = render_to_string(template, {
-        'user': user,
-        'amount': amount,
-    })
-    send_email = EmailMultiAlternatives(subject, '', to=[user.email])
-    send_email.attach_alternative(message, 'text/html')
-    send_email.send()
+# def send_transaction_email(user, amount, subject, template):
+#     message = render_to_string(template, {
+#         'user': user,
+#         'amount': amount,
+#     })
+#     send_email = EmailMultiAlternatives(subject, '', to=[user.email])
+#     send_email.attach_alternative(message, 'text/html')
+#     send_email.send()
 
 
 class TransactionCreateMixin(LoginRequiredMixin, CreateView):
@@ -76,12 +76,12 @@ class DipositView(TransactionCreateMixin):
         )
         messages.success(self.request, f"{amount:.2f} $ was deposited successfully")
         # Send email notification
-        send_transaction_email(
-            user=self.request.user,
-            amount=amount,
-            subject='Deposit Successful',
-            template='transactions/deposit_email.html'
-        )
+        # send_transaction_email(
+        #     user=self.request.user,
+        #     amount=amount,
+        #     subject='Deposit Successful',
+        #     template='transactions/deposit_email.html'
+        # )
         return super().form_valid(form)
 
 
@@ -102,8 +102,8 @@ class WithdrawalView(TransactionCreateMixin):
             update_fields = ['balance']
         )
 
-        messages.success(self.request ,f"{amount:.2f} $ was withdrawn from your account successfully")
-        send_transaction_email(self.request.user, amount, "Withdrawal Message", "transactions/withdrawal_email.html")
+        # messages.success(self.request ,f"{amount:.2f} $ was withdrawn from your account successfully")
+        # send_transaction_email(self.request.user, amount, "Withdrawal Message", "transactions/withdrawal_email.html")
         return super().form_valid(form)
 
 
@@ -157,7 +157,7 @@ class LoanRequestView(TransactionCreateMixin):
         account.save()
 
         messages.success(self.request, f"{amount:.2f} $ was requested for loan successfully")
-        send_transaction_email(self.request.user, amount, "Loan Request Message", "transactions/loan_email.html")
+        # send_transaction_email(self.request.user, amount, "Loan Request Message", "transactions/loan_email.html")
         return super().form_valid(form)
 
         
