@@ -79,7 +79,7 @@ class LoanAdmin(admin.ModelAdmin):
                 obj.balance_after_transaction = account.balance
                 # print("Loan requested but not approved yet.")
             
-        send_transaction_email(obj.account.user, obj.amount, "Loan Approval", "transactions/admin_email.html")
+        # send_transaction_email(obj.account.user, obj.amount, "Loan Approval", "transactions/admin_email.html")
         super().save_model(request, obj, form, change)
 
 
